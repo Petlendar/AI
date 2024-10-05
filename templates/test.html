@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image and Text with Pet Name</title>
+</head>
+<body>
+    <h1>Submit Text, Image, and Pet Name</h1>
+    <form id="apiForm">
+        <label for="text">Enter Text:</label>
+        <input type="text" id="text" name="text" required>
+        <br><br>
+        <label for="pet_name">Enter Pet Name:</label>
+        <input type="text" id="pet_name" name="pet_name">
+        <br><br>
+        <label for="image">Upload Image (optional):</label>
+        <input type="file" id="image" name="image">
+        <br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Response</h2>
+    <pre id="response"></pre>
+
+    <script>
+        document.getElementById('apiForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            const textInput = document.getElementById('text').value;
+            const petNameInput = document.getElementById('pet_name').value;
+            const imageInput = document.getElementById('image').files[0];  // 이미지 선택
+
+            formData.append('text', textInput);
+            formData.append('pet_name', petNameInput);  // 반려동물 이름 추가
+            if (imageInput) {
+                formData.append('image', imageInput);  // 이미지가 있으면 추가
+            }
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/process', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('response').textContent = 'Error: ' + error;
+            }
+        });
+    </script>
+</body>
+</html>
