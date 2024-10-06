@@ -1,5 +1,4 @@
-import openai
-import os
+import openai  # OpenAI 패키지 임포트
 
 def process_image_and_text(text, image_url, api_key):
     """
@@ -7,22 +6,29 @@ def process_image_and_text(text, image_url, api_key):
     """
     openai.api_key = api_key  # OpenAI API 키 설정
 
-    messages = [
-        {"role": "system", "content": "너는 동물건강 진단 시스템이야."},
-        {"role": "user", "content": text}
-    ]
-
-    if image_url:
-        # 이미지 URL을 OpenAI API에 포함
-        messages.append({"role": "user", "content": f"이미지 URL: {image_url}"})
-
     try:
-        # OpenAI Chat API 호출
+        # OpenAI API 호출
         response = openai.ChatCompletion.create(
-            model="gpt-4-turbo",
-            messages=messages,
+            model="gpt-4o-mini",  # 이미지 url을 받아 분석하는 모델
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": text
+                         +"사진에 동물이 없다면 \"동물사진이 없습니다\"라는 응답을 해줘"
+                         +"동물이 건강해 보인다면 \"해당 동물은 건강해보입니다\"라는 응답을 해줘"},  # 텍스트 포함
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": image_url}  # 이미지 URL 포함
+                        }
+                    ]
+                }
+            ],
             max_tokens=300
         )
+
+        # 응답 메시지 반환
         return response['choices'][0]['message']['content']
+
     except Exception as e:
         return f"에러 발생: {e}"
