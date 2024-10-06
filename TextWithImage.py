@@ -15,8 +15,8 @@ def process_image_and_text(text, image_url, api_key):
                     "role": "user",
                     "content": [
                         {"type": "text", "text": text
-                         +"사진에 동물이 없다면 \"동물사진이 없습니다\"라는 응답을 해줘"
-                         +"동물이 건강해 보인다면 \"해당 동물은 건강해보입니다\"라는 응답을 해줘"},  # 텍스트 포함
+                         +"동물이 건강해 보인다면 \"해당 동물은 건강해보입니다\"라는 응답을 해줘"
+                         +"사진에 동물이 없다면 \"동물사진이 없습니다\"라는 응답을 해줘"},                        
                         {
                             "type": "image_url",
                             "image_url": {"url": image_url}  # 이미지 URL 포함

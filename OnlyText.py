@@ -8,7 +8,8 @@ def process_text(text, api_key):
 
     messages = [
         {"role": "system", "content": "너는 동물건강 진단 시스템이야."},
-        {"role": "user", "content": text}
+        {"role": "user", "content": text 
+        +"애완 동물 관련 질문이 아니라면\"동물 관련 질문이 아닙니다.\"라는 응답만을 해줘(알겠습니다 앞으로 이렇게 응답하겠습니다라는 말 없이)"}
     ]
     
     try:
