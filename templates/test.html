@@ -3,54 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI VET</title>
+    <title>API Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label, input, textarea {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-    <h1>AI VET</h1>
-    <form id="apiForm">
-        <label for="text">질문하기: </label>
-        <input type="text" id="text" name="text" required>
-        <br><br>
-        <label for="pet_name">애완 동물 이름: </label>
-        <input type="text" id="pet_name" name="pet_name">
-        <br><br>
-        <label for="image_url">Image URL (optional):</label>
-        <input type="text" id="image_url" name="image_url" placeholder="https://example.com/image.jpg">
-        <br><br>
-        <button type="submit">제출</button>
-    </form>
+    <h1>API Test Page</h1>
 
-    <h2>AI VET의 응답</h2>
-    <pre id="response"></pre>
+    <div class="container">
+        <h2>반려동물 음식 추천 API</h2>
+        <label for="foodText">Enter text for food recommendation:</label>
+        <textarea id="foodText"></textarea>
+        <button onclick="submitFood()">Submit</button>
+        <div id="foodResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>반려동물 상담 API</h2>
+        <label for="textAnalysis">Enter text for analysis:</label>
+        <textarea id="textAnalysis"></textarea>
+        <button onclick="submitTextAnalysis()">Submit</button>
+        <div id="textResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>반려동물 이미지 분석 API</h2>
+        <label for="imageText">Enter text:</label>
+        <textarea id="imageText"></textarea>
+        <label for="imageUrl">Enter image URL:</label>
+        <input type="text" id="imageUrl" />
+        <button onclick="submitImageText()">Submit</button>
+        <div id="imageTextResult" class="result"></div>
+    </div>
+
+    <div class="container">
+        <h2>반려동물 백신 정보API</h2>
+        <label for="vaccineText">Enter text for vaccine information:</label>
+        <textarea id="vaccineText"></textarea>
+        <button onclick="submitVaccine()">Submit</button>
+        <div id="vaccineResult" class="result"></div>
+    </div>
 
     <script>
-        document.getElementById('apiForm').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            const textInput = document.getElementById('text').value;
-            const petNameInput = document.getElementById('pet_name').value;
-            const imageUrlInput = document.getElementById('image_url').value;  // 이미지 URL 받기
+        async function submitFood() {
+            const text = document.getElementById('foodText').value;
+            const response = await fetch('/food', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const result = await response.json();
+            document.getElementById('foodResult').innerText = JSON.stringify(result);
+        }
 
-            const formData = {
-                text: textInput,
-                pet_name: petNameInput,
-                image_url: imageUrlInput
-            };
+        async function submitTextAnalysis() {
+            const text = document.getElementById('textAnalysis').value;
+            const response = await fetch('/text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const result = await response.json();
+            document.getElementById('textResult').innerText = JSON.stringify(result);
+        }
 
-            try {
-                const response = await fetch('http://127.0.0.1:5000/process', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData)
-                });
+        async function submitImageText() {
+            const text = document.getElementById('imageText').value;
+            const imageUrl = document.getElementById('imageUrl').value;
+            const response = await fetch('/text_with_image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text, image_url: imageUrl })
+            });
+            const result = await response.json();
+            document.getElementById('imageTextResult').innerText = JSON.stringify(result);
+        }
 
-                const result = await response.json();
-                document.getElementById('response').textContent = JSON.stringify(result, null, 2);
-            } catch (error) {
-                console.error('Error:', error);
-                document.getElementById('response').textContent = 'Error: ' + error;
-            }
-        });
+        async function submitVaccine() {
+            const text = document.getElementById('vaccineText').value;
+            const response = await fetch('/vaccine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text })
+            });
+            const result = await response.json();
+            document.getElementById('vaccineResult').innerText = JSON.stringify(result);
+        }
     </script>
 </body>
 </html>
