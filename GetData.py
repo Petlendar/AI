@@ -26,3 +26,26 @@ def pet_info(pet_id, jwt_token):
         
     else:
         print("요청 실패:", response.status_code)
+
+def vaccine_info(pet_id, jwt_token):
+    # 실제 petId 값으로 교체 필요 (프론트에서 받아야함)
+    url = f"http://114.70.216.57/pet/api/vaccination/{petId}"
+
+
+    # 실제 JWT 토큰으로 대체 필요 (프론트에서 받아야함)
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {jwt_token}"
+    }
+
+    # GET
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        response_data = response.json()
+        
+        vaccine_name = response_data.get("body", {}).get("type") # 백신 이름
+        vaccine_date = response_data.get("body", {}).get("date") # 접종 날짜
+
+    else:
+        print("요청 실패:", response.status_code)
