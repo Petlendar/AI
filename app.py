@@ -20,14 +20,9 @@ load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")
 
 
-@app.route('/') #테스트 템플릿 반환
+@app.route('/') #테스트 템플릿 반환 (AI 페이지 작업 완료 시 제거)
 def home():
     return render_template('test.html')
-    # AI 페이지로 변경 예정
-'''
-    url = "https://example.com/AIpage.html"
-    return redirect(url)
-'''
 
 
 @app.route('/getid', methods=['GET'])
