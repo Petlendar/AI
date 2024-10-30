@@ -4,6 +4,8 @@ from FoodRec import process_food_rec
 from PetAdvice import process_pet_advice
 from PetMonitor import process_pet_monitor
 from VaccineInfo import process_vaccine_info
+from GetData import pet_info
+
 
 import os
 from dotenv import load_dotenv  # .env 파일에서 환경 변수 로드
@@ -21,6 +23,13 @@ api_key = os.getenv("OPENAI_API_KEY")
 @app.route('/') #테스트 템플릿 반환
 def home():
     return render_template('test.html')
+
+@app.route('/getid', methods=['GET'])
+def get_data():
+    jwt_token = request.headers.get("Authorization").split(" ")[1]  # 'Bearer' 부분 제거
+    pet_id = request.args.get("petId") # url파라미터로 부터 petid추출
+    result = pet_info(pet_id, jwt_token)
+    return jsonify(result)
 
 @app.route('/food', methods=['POST'])
 def food_recommendation():

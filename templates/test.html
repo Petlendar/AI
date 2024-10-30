@@ -99,7 +99,7 @@
 
         async function submitTextAnalysis() {
             const text = document.getElementById('textAnalysis').value;
-            const response = await fetch('/text', {
+            const response = await fetch('/petadvice', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -113,7 +113,7 @@
         async function submitImageText() {
             const text = document.getElementById('imageText').value;
             const imageUrl = document.getElementById('imageUrl').value;
-            const response = await fetch('/text_with_image', {
+            const response = await fetch('/petmonitor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
