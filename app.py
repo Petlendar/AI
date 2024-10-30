@@ -30,14 +30,14 @@ def food_recommendation():
     return jsonify({"result": result})
 
 @app.route('/petadvice', methods=['POST'])
-def text_analysis():
+def pet_advisor():
     data = request.get_json()
     text = data.get('text', '')
     result = process_pet_advice(text, api_key)
     return jsonify({"result": result})
 
 @app.route('/petmonitor', methods=['POST'])
-def text_with_image_analysis():
+def pet_monotoring():
     data = request.get_json()
     text = data.get('text', '')
     image_url = data.get('image_url', '')
@@ -45,7 +45,7 @@ def text_with_image_analysis():
     return jsonify({"result": result})
 
 @app.route('/vaccine', methods=['POST'])
-def vaccine_info():
+def vaccine_information():
     data = request.get_json()
     text = data.get('text', '')
     result = process_vaccine_info(text, api_key)
