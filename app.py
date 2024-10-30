@@ -23,6 +23,12 @@ api_key = os.getenv("OPENAI_API_KEY")
 @app.route('/') #테스트 템플릿 반환
 def home():
     return render_template('test.html')
+    # AI 페이지로 변경 예정
+'''
+    url = "https://example.com/AIpage.html"
+    return redirect(url)
+'''
+
 
 @app.route('/getid', methods=['GET'])
 def get_data():
