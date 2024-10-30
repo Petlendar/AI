@@ -1,7 +1,7 @@
 import openai
 
 
-def process_food(text, api_key):
+def process_food_rec(text, api_key):
     """
     텍스트만 처리하는 함수.
     """

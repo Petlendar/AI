@@ -1,6 +1,6 @@
 import openai
 
-def process_text(text, api_key):
+def process_pet_advice(text, api_key):
     """
     텍스트만 처리하는 함수.
     """

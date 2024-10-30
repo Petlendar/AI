@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify, render_template
 import openai
-from FoodRec import process_food
-from OnlyText import process_text
-from TextWithImage import process_image_and_text
-from vaccine import process_vaccine
+from FoodRec import process_food_rec
+from PetAdvice import process_pet_advice
+from PetMonitor import process_pet_monitor
+from VaccineInfo import process_vaccine_info
 
 import os
 from dotenv import load_dotenv  # .env 파일에서 환경 변수 로드
@@ -26,29 +26,29 @@ def home():
 def food_recommendation():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_food(text, api_key)
+    result = process_food_rec(text, api_key)
     return jsonify({"result": result})
 
-@app.route('/text', methods=['POST'])
+@app.route('/petadvice', methods=['POST'])
 def text_analysis():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_text(text, api_key)
+    result = process_pet_advice(text, api_key)
     return jsonify({"result": result})
 
-@app.route('/text_with_image', methods=['POST'])
+@app.route('/petmonitor', methods=['POST'])
 def text_with_image_analysis():
     data = request.get_json()
     text = data.get('text', '')
     image_url = data.get('image_url', '')
-    result = process_image_and_text(text, image_url, api_key)
+    result = process_pet_monitor(text, image_url, api_key)
     return jsonify({"result": result})
 
 @app.route('/vaccine', methods=['POST'])
 def vaccine_info():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_vaccine(text, api_key)
+    result = process_vaccine_info(text, api_key)
     return jsonify({"result": result})
 
 if __name__ == '__main__':

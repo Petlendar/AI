@@ -1,6 +1,6 @@
 import openai  # OpenAI 패키지 임포트
 
-def process_image_and_text(text, image_url, api_key):
+def process_pet_monitor(text, image_url, api_key):
     """
     텍스트와 이미지 URL을 함께 처리하는 함수.
     """
