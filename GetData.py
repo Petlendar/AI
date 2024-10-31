@@ -27,13 +27,6 @@ def pet_info(petId, jwt_token):
             # "body"와 "petImage"에서 안전하게 값을 추출
             pet_image_url = response_data.get("body", {}).get("petImage", {}).get("imageUrl")
             
-            # imageUrl이 None이면 기본 메시지 출력
-            if pet_image_url is None:
-                print("imageUrl 값이 없습니다.")
-                pet_image_url = "No Image Available"  # 기본값 설정
-            else:
-                print("이미지 URL:", pet_image_url)
-
         except AttributeError:
             pet_image_url = "No Image Available"
 
@@ -64,3 +57,5 @@ def vaccine_info(petId, jwt_token):
 
     else:
         print("요청 실패:", response.status_code)
+
+# TEST : # pet_info(petid,token)
