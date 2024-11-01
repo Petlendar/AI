@@ -41,7 +41,6 @@ def pet_advisor():
 def pet_monotoring():
     data = request.get_json()
     text = data.get('text', '')
-    image_url = data.get('image_url', '')
 
     jwt_token = data.get("Authorization").split(" ")[1]
     pet_id = data.get("petId")

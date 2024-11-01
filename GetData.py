@@ -54,8 +54,12 @@ def vaccine_info(petId, jwt_token):
     if response.status_code == 200:
         response_data = response.json()
         
-        vaccine_name = response_data.get("body", {}).get("type") # 백신 이름
-        vaccine_date = response_data.get("body", {}).get("date") # 접종 날짜
+        try:
+            vaccine_name = response_data.get("body", {}).get("type") # 백신 이름
+            vaccine_date = response_data.get("body", {}).get("date") # 접종 날짜
+        except AttributeError:
+                vaccine_name = "No Vaccine Information"
+                vaccine_date = "No Vaccine Information"
 
         return vaccine_name, vaccine_date
 
