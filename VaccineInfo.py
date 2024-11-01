@@ -4,7 +4,15 @@ from GetData import pet_info, vaccine_info
 def process_vaccine_info(text, api_key, pet_id, jwt_token):
     
     pet_name, pet_birth, pet_category, pet_weight, pet_image_url = pet_info(pet_id, jwt_token)
-    vaccine_name, vaccine_date = vaccine_info(pet_id, jwt_token)
+    
+    try:
+        vaccine_name, vaccine_date = vaccine_info(pet_id, jwt_token)
+    except Exception as e:
+        if "404" in str(e): # 404 반환 시
+            vaccine_name = "정보 없음"
+            vaccine_date = "정보 없음"
+        else:
+            return f"에러 발생: {e}"
     
     openai.api_key = api_key
 
