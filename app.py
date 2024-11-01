@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import openai
 from FoodRec import process_food_rec
 from PetAdvice import process_pet_advice
@@ -6,33 +6,14 @@ from PetMonitor import process_pet_monitor
 from VaccineInfo import process_vaccine_info
 from GetData import pet_info, vaccine_info
 
-
 import os
 from dotenv import load_dotenv  # .env 파일에서 환경 변수 로드
 
-
 app = Flask(__name__)
 
-# 환경 변수 로드
 load_dotenv()
 
-# OpenAI API 키 설정
 api_key = os.getenv("OPENAI_API_KEY")
-
-'''
-@app.route('/') #테스트 템플릿 반환 (AI 페이지 작업 완료 시 제거)
-def home():
-    return render_template('test.html')
-
-
-@app.route('/getid', methods=['GET'])
-def get_data():
-    jwt_token = request.headers.get("Authorization").split(" ")[1]  # 'Bearer' 부분 제거
-    pet_id = request.args.get("petId") # url파라미터로 부터 petid추출
-    pet_info(pet_id, jwt_token)
-    vaccine_info(pet_id, jwt_token)
-    return '', 204
-'''
 
 @app.route('/food', methods=['POST'])
 def food_recommendation():
@@ -49,7 +30,11 @@ def food_recommendation():
 def pet_advisor():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_pet_advice(text, api_key)
+
+    jwt_token = data.get("Authorization").split(" ")[1]
+    pet_id = data.get("petId")
+
+    result = process_pet_advice(text, api_key, pet_id, jwt_token)
     return jsonify({"result": result})
 
 @app.route('/petmonitor', methods=['POST'])
@@ -57,14 +42,22 @@ def pet_monotoring():
     data = request.get_json()
     text = data.get('text', '')
     image_url = data.get('image_url', '')
-    result = process_pet_monitor(text, image_url, api_key)
+
+    jwt_token = data.get("Authorization").split(" ")[1]
+    pet_id = data.get("petId")
+
+    result = process_pet_monitor(text, api_key, pet_id, jwt_token)
     return jsonify({"result": result})
 
 @app.route('/vaccine', methods=['POST'])
 def vaccine_information():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_vaccine_info(text, api_key)
+
+    jwt_token = data.get("Authorization").split(" ")[1]
+    pet_id = data.get("petId")
+
+    result = process_vaccine_info(text, api_key, pet_id, jwt_token)
     return jsonify({"result": result})
 
 if __name__ == '__main__':
