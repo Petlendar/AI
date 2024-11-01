@@ -19,7 +19,7 @@ load_dotenv()
 # OpenAI API 키 설정
 api_key = os.getenv("OPENAI_API_KEY")
 
-
+'''
 @app.route('/') #테스트 템플릿 반환 (AI 페이지 작업 완료 시 제거)
 def home():
     return render_template('test.html')
@@ -32,12 +32,17 @@ def get_data():
     pet_info(pet_id, jwt_token)
     vaccine_info(pet_id, jwt_token)
     return '', 204
+'''
 
 @app.route('/food', methods=['POST'])
 def food_recommendation():
     data = request.get_json()
     text = data.get('text', '')
-    result = process_food_rec(text, api_key)
+
+    jwt_token = data.get("Authorization").split(" ")[1] # 'Bearer' 부분 제거
+    pet_id = data.get("petId") # url파라미터로 부터 petid추출
+
+    result = process_food_rec(text, api_key, pet_id, jwt_token)
     return jsonify({"result": result})
 
 @app.route('/petadvice', methods=['POST'])

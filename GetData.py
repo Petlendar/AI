@@ -30,10 +30,12 @@ def pet_info(petId, jwt_token):
         except AttributeError:
             pet_image_url = "No Image Available"
 
-        print (pet_name, pet_birth, pet_category, pet_weight, pet_image_url)
+        #print (pet_name, pet_birth, pet_category, pet_weight, pet_image_url)
+        return pet_name, pet_birth, pet_category, pet_weight, pet_image_url
 
     else:
         print("요청 실패:", response.status_code)
+        return None
 
 def vaccine_info(petId, jwt_token):
     # 실제 petId 값으로 교체 필요 (프론트에서 받아야함)
@@ -55,7 +57,10 @@ def vaccine_info(petId, jwt_token):
         vaccine_name = response_data.get("body", {}).get("type") # 백신 이름
         vaccine_date = response_data.get("body", {}).get("date") # 접종 날짜
 
+        return vaccine_name, vaccine_date
+
     else:
         print("요청 실패:", response.status_code)
+        return None
 
 # TEST : # pet_info(petid,token)
