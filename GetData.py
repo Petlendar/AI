@@ -66,5 +66,3 @@ def vaccine_info(petId, jwt_token):
     else:
         print("요청 실패:", response.status_code)
         return None
-
-# TEST : # pet_info(petid,token)

@@ -18,18 +18,18 @@ def process_vaccine_info(text, api_key, pet_id, jwt_token):
         messages = [
             {"role": "system", "content": "너는 애완동물의 예방접종 정보 제공 시스템이야."},
             {"role": "user", "content": text 
-            +"애완 동물 관련 질문이 아니라면\"동물 관련 질문이 아닙니다.\"라는 응답만을 해줘(알겠습니다 앞으로 이렇게 응답하겠습니다라는 말 없이)"
             +f"애완 동물 이름은 {pet_name}이고, 생년 월일은{pet_birth}이고, 종은 {pet_category}, 몸무게는 {pet_weight}야."
-            +f"예방접종 맞은 날짜는 {vaccine_date}이고, 백신 이름은 {vaccine_name}이야."
+            +f"그리고 {vaccine_name}를 접종했고, 예방접종 맞은 날짜는 {vaccine_date}"
+            +"공백 포함 300자 이내로 답변할 것."
             }
         ]
     else:
         messages = [
             {"role": "system", "content": "너는 애완동물의 예방접종 정보 제공 시스템이야."},
             {"role": "user", "content": text 
-            +"애완 동물 관련 질문이 아니라면\"동물 관련 질문이 아닙니다.\"라는 응답만을 해줘(알겠습니다 앞으로 이렇게 응답하겠습니다라는 말 없이)"
             +f"애완 동물 이름은 {pet_name}이고, 생년 월일은{pet_birth}이고, 종은 {pet_category}, 몸무게는 {pet_weight}야."
-            +f"\"해당 애완 동물의 예방 접종 관련 정보가 없습니다.\"라는 말을 응답의 끝에 붙여줘."
+            +f"\"해당 애완 동물의 예방 접종 관련 정보가 없습니다.\"라는 말을 응답의 시작에 붙여줘."
+            +"공백 포함 300자 이내로 답변할 것."
             }
         ]
     
