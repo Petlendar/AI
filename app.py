@@ -17,7 +17,7 @@ load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
 
-@app.route('/food', methods=['POST'])
+@app.route('/food', methods=['GET'])
 def food_recommendation():
     try:
         data = request.get_json()
@@ -34,7 +34,7 @@ def food_recommendation():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/petadvice', methods=['POST'])
+@app.route('/petadvice', methods=['GET'])
 def pet_advisor():
     try:
         data = request.get_json()
@@ -51,7 +51,7 @@ def pet_advisor():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/petmonitor', methods=['POST'])
+@app.route('/petmonitor', methods=['GET'])
 def pet_monotoring():
     try:
         data = request.get_json()
@@ -68,7 +68,7 @@ def pet_monotoring():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/vaccine', methods=['POST'])
+@app.route('/vaccine', methods=['GET'])
 def vaccine_information():
     try:
         data = request.get_json()

@@ -19,6 +19,7 @@ def process_pet_monitor(text, api_key, pet_id, jwt_token):
                             "동물이 건강해 보인다면 \"해당 동물은 건강해보입니다\"라는 응답과 함께 동물이 귀엽습니다 등의 반응을 해줘"
                             +"사진에 동물이 없다면 \"동물 사진이 아닙니다\"라는 응답을 해줘"
                             +f"애완 동물 이름은 {pet_name}이고, 생년 월일은{pet_birth}이고, 종은 {pet_category}, 몸무게는 {pet_weight}야."
+                            +"공백 포함 300자 이내로 답변할 것."
                             +text
                             },
                             {

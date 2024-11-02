@@ -12,7 +12,7 @@ def extract_text(data):
     if text is None:
         return jsonify({"result": "'text' field is missing in 'body'"}), 400
 
-    authorization = body.get("Authorization")
+    authorization = request.headers.get("Authorization")
     if authorization is None:
         return jsonify({"result": "'Authorization' field is missing in 'body'"}), 400
     if not authorization.startswith("Bearer "):
