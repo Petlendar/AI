@@ -1,4 +1,4 @@
-import openai  # OpenAI 패키지 임포트
+import openai
 from GetData import pet_info
 
 def process_pet_monitor(text, api_key, pet_id, jwt_token):
@@ -24,7 +24,7 @@ def process_pet_monitor(text, api_key, pet_id, jwt_token):
                             },
                             {
                                 "type": "image_url",
-                                "image_url": {"url": pet_image_url}  # 이미지 URL 포함
+                                "image_url": {"url": pet_image_url}
                             }
                         ]
                     }
@@ -51,7 +51,6 @@ def process_pet_monitor(text, api_key, pet_id, jwt_token):
             )
 
 
-        # 응답 메시지 반환
         return response['choices'][0]['message']['content']
 
     except Exception as e:

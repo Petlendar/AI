@@ -84,6 +84,6 @@ def vaccine_information():
     
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
+        
 if __name__ == '__main__':
-    # 서버 열기
     app.run(host='0.0.0.0', port=5000)

@@ -1,18 +1,14 @@
 import requests
 
-# 반려동물 정보 조회 URL
 def pet_info(petId, jwt_token):
-    # 실제 petId 값으로 교체 필요 (프론트에서 받아야함)
     url = f"http://114.70.216.57/pet/api/pet/{petId}"
 
 
-    # 실제 JWT 토큰으로 대체 필요 (프론트에서 받아야함)
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {jwt_token}"
     }
 
-    # GET
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
@@ -24,13 +20,11 @@ def pet_info(petId, jwt_token):
         pet_weight = response_data.get("body", {}).get("weight") # 몸무게
         
         try:
-            # "body"와 "petImage"에서 안전하게 값을 추출
             pet_image_url = response_data.get("body", {}).get("petImage", {}).get("imageUrl")
             
         except AttributeError:
             pet_image_url = "No Image Available"
 
-        #print (pet_name, pet_birth, pet_category, pet_weight, pet_image_url)
         return pet_name, pet_birth, pet_category, pet_weight, pet_image_url
 
     else:
@@ -38,17 +32,14 @@ def pet_info(petId, jwt_token):
         return None
 
 def vaccine_info(petId, jwt_token):
-    # 실제 petId 값으로 교체 필요 (프론트에서 받아야함)
     url = f"http://114.70.216.57/pet/api/vaccination/{petId}"
 
 
-    # 실제 JWT 토큰으로 대체 필요 (프론트에서 받아야함)
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {jwt_token}"
     }
 
-    # GET
     response = requests.get(url, headers=headers)
 
     if response.status_code == 200:
