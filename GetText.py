@@ -14,7 +14,7 @@ def extract_text(data):
 
     authorization = request.headers.get("Authorization")
     if authorization is None:
-        return jsonify({"result": "'Authorization' field is missing in 'body'"}), 400
+        return jsonify({"result": "'Authorization' field is missing in 'header'"}), 400
     if not authorization.startswith("Bearer "):
         return jsonify({"result": "'Authorization' field is incorrectly formatted"}), 400
     jwt_token = authorization.split(" ")[1]
