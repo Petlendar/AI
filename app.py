@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import openai
 from FoodRec import process_food_rec
 from PetAdvice import process_pet_advice
@@ -12,16 +13,17 @@ import os
 from dotenv import load_dotenv  # .env 파일에서 환경 변수 로드
 
 app = Flask(__name__)
+CORS(app)
 
 load_dotenv()
 
 api_key = os.getenv("OPENAI_API_KEY")
 
-@app.route('/food', methods=['GET'])
+@app.route('/food', methods=['POST'])
 def food_recommendation():
     try:
         data = request.get_json()
-        
+        print("Received data:", data)
         extracted_data = extract_text(data)
         if isinstance(extracted_data, tuple):
             text, jwt_token, pet_id = extracted_data
@@ -34,11 +36,11 @@ def food_recommendation():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/petadvice', methods=['GET'])
+@app.route('/petadvice', methods=['POST'])
 def pet_advisor():
     try:
         data = request.get_json()
-        
+        print("Received data:", data)
         extracted_data = extract_text(data)
         if isinstance(extracted_data, tuple):
             text, jwt_token, pet_id = extracted_data
@@ -51,11 +53,11 @@ def pet_advisor():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/petmonitor', methods=['GET'])
+@app.route('/petmonitor', methods=['POST'])
 def pet_monotoring():
     try:
         data = request.get_json()
-        
+        print("Received data:", data)
         extracted_data = extract_text(data)
         if isinstance(extracted_data, tuple):
             text, jwt_token, pet_id = extracted_data
@@ -68,11 +70,11 @@ def pet_monotoring():
     except Exception as e:
         return jsonify({"result": f"An unexpected error occurred: {str(e)}"}), 500
 
-@app.route('/vaccine', methods=['GET'])
+@app.route('/vaccine', methods=['POST'])
 def vaccine_information():
     try:
         data = request.get_json()
-        
+        print("Received data:", data)
         extracted_data = extract_text(data)
         if isinstance(extracted_data, tuple):
             text, jwt_token, pet_id = extracted_data
