@@ -7,9 +7,6 @@ def process_vaccine_info(text, api_key, pet_id, jwt_token):
     
 
     vaccine_name, vaccine_date = vaccine_info(pet_id, jwt_token)
-    
-    print(vaccine_name)
-    print(vaccine_date)
 
     openai.api_key = api_key
     try:
@@ -46,6 +43,6 @@ def process_vaccine_info(text, api_key, pet_id, jwt_token):
                 max_tokens=300
             )
         return response['choices'][0]['message']['content']
-        
+
     except Exception as e:
         return f"에러 발생: {e}"
