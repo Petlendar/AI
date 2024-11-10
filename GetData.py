@@ -46,11 +46,12 @@ def vaccine_info(petId, jwt_token):
         response_data = response.json()
         
         try:
-            vaccine_name = response_data.get("body", {}).get("type") # 백신 이름
-            vaccine_date = response_data.get("body", {}).get("date") # 접종 날짜
+            vaccine_data = response_data.get("body", [{}])[0]
+            vaccine_name = vaccine_data.get("type") # 백신 이름
+            vaccine_date = vaccine_data.get("date") # 접종 날짜
         except AttributeError:
-                vaccine_name = "No Vaccine Information"
-                vaccine_date = "No Vaccine Information"
+            vaccine_name = "No Vaccine Information"
+            vaccine_date = "No Vaccine Information"
 
         return vaccine_name, vaccine_date
 
