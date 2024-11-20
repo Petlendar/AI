@@ -13,7 +13,12 @@ import os
 from dotenv import load_dotenv  # .env 파일에서 환경 변수 로드
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(app, 
+     resources={r"/*": {"origins": "http://localhost:5001"}},  
+     methods=["GET", "POST", "OPTIONS"],  
+     allow_headers=["Content-Type", "Authorization"], 
+     supports_credentials=True) 
 
 load_dotenv()
 
